@@ -6,7 +6,7 @@
   <h3 align="center">Create an elementary OS app using one of the pre-made app templates</h3>
 </div>
 
-<!-- ![Planify Screenshot](https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-03.png) -->
+![Screenshot](https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.elementary-community.app-generator.png)
 
 ## Building and Installation
 
