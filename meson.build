@@ -33,7 +33,7 @@ gresource = gnome.compile_resources(
 deps = [
     dependency('granite-7'),
     dependency('gtk4'),
-    dependency('libadwaita-1', version: '>= 1.5.0')
+    dependency('libadwaita-1', version: '>=1.4')
 ]
 
 # Create a new executable, list the files we want to compile, and install

@@ -3,9 +3,9 @@ Version=1.0
 Type=Application
 
 Name=App Generator
-Comment=Proves that we can use Vala and Gtk
+Comment=Create an elementary OS app using one of the pre-made app templates.
 Categories=Development;Education;
 
-Icon=applications-development
+Icon=io.github.elementary-community.app-generator
 Exec=io.github.elementary-community.app-generator
 Terminal=false
