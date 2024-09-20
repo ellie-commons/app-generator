@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=App Generator
+Comment=Proves that we can use Vala and Gtk
+Categories=Development;Education;
+
+Icon=applications-development
+Exec=io.github.elementary-community.app-generator
+Terminal=false
