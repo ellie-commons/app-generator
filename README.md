@@ -1,7 +1,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 <div align="center">
-  <span align="center"> <img width="128" height="128" class="center" src="data/icons/hicolor/scalable/apps/io.github.alainm23.planify.svg" alt="Planify Icon"></span>
+  <span align="center"> <img width="128" height="128" class="center" src="data/icons/128.svg" alt="App Generator Icon"></span>
   <h1 align="center">App Generator</h1>
   <h3 align="center">Create an elementary OS app using one of the pre-made app templates</h3>
 </div>
