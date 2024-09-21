@@ -43,6 +43,9 @@ executable(
     gresource,
     'src' / 'Application.vala',
     'src' / 'MainWindow.vala',
+    'src' / 'Services' / 'FormControl.vala',
+    'src' / 'Services' / 'FormGroup.vala',
+    'src' / 'Services' / 'Validators.vala',
     dependencies: deps,
     install: true
 )

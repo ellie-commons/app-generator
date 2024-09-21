@@ -93,9 +93,10 @@ public class MainWindow : Gtk.ApplicationWindow {
 
         var location_entry = new Gtk.Entry () {
             margin_top = 6,
-            secondary_icon_name = "folder-symbolic"
+            secondary_icon_name = "folder-symbolic",
+            text = GLib.Environment.get_user_special_dir (GLib.UserDirectory.TEMPLATES)
         };
-
+        
         var spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -227,14 +228,65 @@ public class MainWindow : Gtk.ApplicationWindow {
     }
 
     private void set_project_values (string destination_folder, string project_name, string aplication_id) {
-        string project_folder = destination_folder + "/" + project_name;
+        string project_folder =  GLib.Path.build_filename (destination_folder, project_name);
+        string aplication_id_schema = aplication_id.replace (".", "/");
 
-        string readme_file = project_folder + "/" + "README.md";
-        string meson_file = project_folder + "/" + "meson.build";
-
+        // Readme File
+        string readme_file = GLib.Path.build_filename (project_folder, "README.md");
         set_file_content (readme_file, "{{APPLICATION_ID}}", aplication_id);
+
+        // Meson File
+        string meson_file = GLib.Path.build_filename (project_folder, "meson.build");
         set_file_content (meson_file, "{{APPLICATION_ID}}", aplication_id);
         set_file_content (meson_file, "{{PROJECT_NAME}}", project_name);
+
+        // Flatpak File
+        string flatpak_file = GLib.Path.build_filename (project_folder, "{{APPLICATION_ID}}.yml");
+        string new_flatpak_file = GLib.Path.build_filename (project_folder, aplication_id + ".yml");
+        rename_file (flatpak_file, new_flatpak_file);
+        set_file_content (new_flatpak_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_flatpak_file, "{{PROJECT_NAME}}", project_name);
+
+        // AppData Files
+        string appdata_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.appdata.xml.in");
+        string new_appdata_file = GLib.Path.build_filename (project_folder, "data", project_name + ".appdata.xml.in");
+        rename_file (appdata_file, new_appdata_file);
+        set_file_content (new_appdata_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_appdata_file, "{{PROJECT_NAME}}", project_name);
+
+        // Desltop Files
+        string desktop_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.desktop.in");
+        string new_desktop_file = GLib.Path.build_filename (project_folder, "data", project_name + ".desktop.in");
+        rename_file (desktop_file, new_desktop_file);
+        set_file_content (new_desktop_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_desktop_file, "{{PROJECT_NAME}}", project_name);
+
+        // Gresource Files
+        string gresource_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.gresource.xml");
+        string new_gresource_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gresource.xml");
+        rename_file (gresource_file, new_gresource_file);
+        set_file_content (new_gresource_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
+        
+        // Gschema Files
+        string gschema_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.gschema.xml");
+        string new_gschema_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gschema.xml");
+        rename_file (gschema_file, new_gschema_file);
+        set_file_content (new_gschema_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
+        set_file_content (new_gschema_file, "{{APPLICATION_ID}}", aplication_id);
+
+        // data meson
+        string data_meson_file = GLib.Path.build_filename (project_folder, "data", "meson.build");
+        set_file_content (data_meson_file, "{{PROJECT_NAME}}", project_name);
+
+        // src app
+        string src_application_file = GLib.Path.build_filename (project_folder, "src", "Application.vala");
+        set_file_content (src_application_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
+        set_file_content (src_application_file, "{{APPLICATION_ID}}", aplication_id);
+
+        // src window
+        string src_window_file = GLib.Path.build_filename (project_folder, "src", "MainWindow.vala");
+        set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
+        set_file_content (src_window_file, "{{APPLICATION_ID}}", aplication_id);
     }
 
     private void set_file_content (string filename, string key, string value) {
@@ -246,7 +298,17 @@ public class MainWindow : Gtk.ApplicationWindow {
     
             FileUtils.set_contents (filename, new_content, -1);    
         } catch (Error e) {
-            print("Error al leer o modificar el archivo: %s\n", e.message);
+            debug (e.message);
+        }
+    }
+
+    void rename_file (string old_name, string new_name) {
+        try {
+            GLib.File old_file = GLib.File.new_for_path (old_name);
+            GLib.File new_file = GLib.File.new_for_path (new_name);
+            old_file.move (new_file, GLib.FileCopyFlags.NONE);
+        } catch (GLib.Error e) {
+            debug (e.message);
         }
     }
 }
