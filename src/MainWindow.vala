@@ -6,6 +6,14 @@
 public class MainWindow : Gtk.ApplicationWindow {
     string REPOSITORY_TEMPLATE_URL = "https://github.com/elementary-community/elementary-app-template.git";
 
+    private Granite.ValidatedEntry project_name_entry;
+    private Granite.ValidatedEntry identifier_entry;
+    private Gtk.Entry aplication_id_entry;
+    private Gtk.Entry location_entry;
+    private Gtk.Stack main_stack;
+    private Gtk.Image success_icon;
+    private Granite.Toast toast;
+
     public MainWindow (Gtk.Application application) {
         Object (
             application: application,
@@ -60,7 +68,7 @@ public class MainWindow : Gtk.ApplicationWindow {
             critical (e.message);
         }
 
-        var project_name_entry = new Granite.ValidatedEntry () {
+        project_name_entry = new Granite.ValidatedEntry () {
             regex = project_name_regex,
             margin_top = 6
         };
@@ -73,7 +81,7 @@ public class MainWindow : Gtk.ApplicationWindow {
         project_name_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         project_name_description.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var identifier_entry = new Granite.ValidatedEntry () {
+        identifier_entry = new Granite.ValidatedEntry () {
             regex = identifier_regex,
             margin_top = 6
         };
@@ -86,12 +94,12 @@ public class MainWindow : Gtk.ApplicationWindow {
         identifier_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         identifier_description.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var aplication_id_entry = new Gtk.Entry () {
+        aplication_id_entry = new Gtk.Entry () {
             margin_top = 6,
             editable = false
         };
 
-        var location_entry = new Gtk.Entry () {
+        location_entry = new Gtk.Entry () {
             margin_top = 6,
             secondary_icon_name = "folder-symbolic",
             text = GLib.Environment.get_user_special_dir (GLib.UserDirectory.TEMPLATES)
@@ -118,22 +126,45 @@ public class MainWindow : Gtk.ApplicationWindow {
         };
         create_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        form_box.append (new Granite.HeaderLabel (_("Project Name:")));
+        form_box.append (project_name_entry);
+        form_box.append (project_name_description);
+        form_box.append (new Granite.HeaderLabel (_("Organization Identifier:")));
+        form_box.append (identifier_entry);
+        form_box.append (identifier_description);
+        form_box.append (new Granite.HeaderLabel (_("Aplication ID:")));
+        form_box.append (aplication_id_entry);
+        form_box.append (new Granite.HeaderLabel (_("Location:")));
+        form_box.append (location_entry);
+        form_box.append (create_button);
+
+        success_icon = new Gtk.Image.from_icon_name ("emblem-default") {
+            pixel_size = 64,
+            css_classes = { "fancy-turn" }
+        };
+
+        var success_label = new Gtk.Label (_("The project was created successfully")) {
+            wrap = true
+        };
+
+        success_label.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
+
+        var success_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            vexpand = true,
+            valign = CENTER,
+            halign = CENTER
+        };
+        success_box.append (success_icon);
+        success_box.append (success_label);
+
         var right_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 24,
             margin_end = 24,
             hexpand = true
         };
-        right_box.append (new Granite.HeaderLabel (_("Project Name:")));
-        right_box.append (project_name_entry);
-        right_box.append (project_name_description);
-        right_box.append (new Granite.HeaderLabel (_("Organization Identifier:")));
-        right_box.append (identifier_entry);
-        right_box.append (identifier_description);
-        right_box.append (new Granite.HeaderLabel (_("Aplication ID:")));
-        right_box.append (aplication_id_entry);
-        right_box.append (new Granite.HeaderLabel (_("Location:")));
-        right_box.append (location_entry);
-        right_box.append (create_button);
+
+        right_box.append (form_box);
 
         var main_box = new Gtk.CenterBox () {
             hexpand = true,
@@ -146,9 +177,21 @@ public class MainWindow : Gtk.ApplicationWindow {
         };
         main_box.end_widget = right_box;
 
+        main_stack = new Gtk.Stack ();
+        main_stack.add_named (main_box, "form");
+        main_stack.add_named (success_box, "success");
+
+        toast = new Granite.Toast ("");
+
+        var overlay = new Gtk.Overlay () {
+            child = main_stack
+        };
+        overlay.add_overlay (toast);
+        overlay.set_measure_overlay (toast, true);
+
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = main_box;
+		toolbar_view.content = overlay;
 
         child = toolbar_view;
 
@@ -190,6 +233,8 @@ public class MainWindow : Gtk.ApplicationWindow {
                         }
                     } catch (Error e) {
                         debug ("Error during save backup: %s".printf (e.message));
+                        toast.title = e.message;
+                        toast.send_notification ();
                     }
                 });
             }
@@ -202,29 +247,22 @@ public class MainWindow : Gtk.ApplicationWindow {
 
     public void clone_repo_async (string destination_folder, string project_name, string aplication_id, Gtk.Stack button_stack) {
         button_stack.visible_child_name = "spinner";
-        string command = "git -C %s clone -b blank %s %s".printf (destination_folder, REPOSITORY_TEMPLATE_URL, project_name);
+        string[] command = { "git", "-C", destination_folder, "clone", "-b", "blank", REPOSITORY_TEMPLATE_URL, project_name };
+        GLib.Subprocess process = new GLib.Subprocess.newv (command, SubprocessFlags.STDOUT_PIPE | SubprocessFlags.STDERR_PIPE);
 
-        Timeout.add (250, () => {
+        process.wait_check_async.begin (null, (obj, res) => {
             try {
-                string? stdout = null;
-                string? stderr = null;
-                int exit_status;
-    
-                Process.spawn_command_line_sync (command, out stdout, out stderr, out exit_status);
-    
-                if (exit_status == 0) {
-                    set_project_values (destination_folder, project_name, aplication_id);
-                } else {
-                    print("Error al clonar el repositorio: %s\n", stderr);
-                }
-    
-                button_stack.visible_child_name = "button";
+                process.wait_check_async.end (res);
+                set_project_values (destination_folder, project_name, aplication_id);
             } catch (Error e) {
-                print("Ocurrió un error: %s\n", e.message);
+                string stdout_buf;
+                string stderr_buf;
+                process.communicate_utf8 (null, null, out stdout_buf, out stderr_buf);
                 button_stack.visible_child_name = "button";
+                toast.title = stderr_buf;
+                toast.send_notification ();
             }
-			return GLib.Source.REMOVE;
-		});
+        });
     }
 
     private void set_project_values (string destination_folder, string project_name, string aplication_id) {
@@ -287,6 +325,19 @@ public class MainWindow : Gtk.ApplicationWindow {
         string src_window_file = GLib.Path.build_filename (project_folder, "src", "MainWindow.vala");
         set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
         set_file_content (src_window_file, "{{APPLICATION_ID}}", aplication_id);
+
+        main_stack.visible_child_name = "success";
+		success_icon.add_css_class ("animation");
+
+		Timeout.add_once (1000, () => {
+            main_stack.visible_child_name = "form";
+            success_icon.remove_css_class ("animation");
+
+            project_name_entry.text = "";
+            identifier_entry.text = "";
+            aplication_id_entry.text = "";
+            location_entry.text = "";
+		});
     }
 
     private void set_file_content (string filename, string key, string value) {

@@ -1,0 +1,11 @@
+@keyframes fancy-turn {
+    0%   { -gtk-icon-transform: rotate(0deg);   }
+    25%  { -gtk-icon-transform: rotate(-30deg); }
+    50%  { -gtk-icon-transform: rotate(0deg);   }
+    75%  { -gtk-icon-transform: rotate(30deg);  }
+    100% { -gtk-icon-transform: rotate(0deg);   }
+}
+
+.fancy-turn.animation {
+    animation: fancy-turn 0.7s ease-in-out;
+}
