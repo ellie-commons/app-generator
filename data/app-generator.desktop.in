@@ -6,6 +6,6 @@ Name=App Generator
 Comment=Create an elementary OS app using one of the pre-made app templates.
 Categories=Development;Education;
 
-Icon=io.github.elementary-community.app-generator
-Exec=io.github.elementary-community.app-generator
+Icon=io.github.ecommunity.app-generator
+Exec=io.github.ecommunity.app-generator
 Terminal=false

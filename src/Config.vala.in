@@ -1,2 +1,3 @@
 public const string GETTEXT_PACKAGE = @GETTEXT_PACKAGE@;
 public const string LOCALEDIR = @LOCALEDIR@;
+public const string REPOSITORY_TEMPLATE_URL = "https://github.com/elementary-community/elementary-app-template.git";

@@ -1,6 +1,6 @@
 # project name and programming language
 project(
-  'io.github.elementary-community.app-generator',
+  'io.github.ecommunity.app-generator',
   'vala', 'c',
   version: '0.1'
 )
@@ -41,11 +41,10 @@ executable(
     meson.project_name(),
     config_file,
     gresource,
-    'src' / 'Application.vala',
-    'src' / 'MainWindow.vala',
-    'src' / 'Services' / 'FormControl.vala',
-    'src' / 'Services' / 'FormGroup.vala',
-    'src' / 'Services' / 'Validators.vala',
+    'src/Application.vala',
+    'src/MainWindow.vala',
+    'src/Views/Form.vala',
+    'src/Views/Success.vala',
     dependencies: deps,
     install: true
 )

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>io.github.elementary-community.app-generator</id>
+	<id>io.github.ecommunity.app-generator</id>
 	<metadata_license>CC-BY-4.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
 	<name>App Generator</name>
 	<summary>Create an elementary OS app using one of the pre-made app templates</summary>
 	<description>
 		<p>
-      App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
-    </p>
+      		App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
+    	</p>
 	</description>
 	<screenshots>
 		<screenshot type="default">
-			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.elementary-community.app-generator.png</image>
+			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ecommunity.app-generator.png</image>
 		</screenshot>
 	</screenshots>
 	<developer_name translate="no">elementary Community</developer_name>
@@ -22,7 +22,5 @@
 	<custom>
 		<value key="x-appcenter-color-primary">#603461</value>
 		<value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>
-		<value key="x-appcenter-suggested-price">5</value>
-		<value key="x-appcenter-stripe">pk_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</value>
 	</custom>
 </component>

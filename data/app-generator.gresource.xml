@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/io/github/elementary-community/app-generator/">
+  <gresource prefix="/io/github/ecommunity/app-generator/">
     <file alias="Application.css">Application.css</file>
   </gresource>
 </gresources>
