@@ -22,6 +22,9 @@ public class MainWindow : Gtk.ApplicationWindow {
 	}
 
     construct {
+        var dir = Environment.get_user_data_dir ();
+        print ("DIR: %s".printf (dir));
+
         var headerbar = new Gtk.HeaderBar () {
 			title_widget = new Gtk.Label (null),
 			hexpand = true

@@ -35,3 +35,4 @@ i18n.merge_file(
     install: true,
     install_dir: get_option('datadir') / 'metainfo'
 )
+
