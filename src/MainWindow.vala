@@ -1,6 +1,6 @@
 /*
 * SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2021 Your Name <you@email.com>
+* SPDX-FileCopyrightText: 2024 Alain <Alainmh23@gmail.com>
 */
 
 public class MainWindow : Gtk.ApplicationWindow {
@@ -22,13 +22,45 @@ public class MainWindow : Gtk.ApplicationWindow {
 	}
 
     construct {
-        var dir = Environment.get_user_data_dir ();
-        print ("DIR: %s".printf (dir));
-
         var headerbar = new Gtk.HeaderBar () {
 			title_widget = new Gtk.Label (null),
 			hexpand = true
 		};
+
+        var project_icon = new Gtk.Image.from_icon_name ("applications-development") {
+            pixel_size = 96
+        };
+
+        var title_label = new Gtk.Label (_("App Generator"));
+        title_label.add_css_class (Granite.STYLE_CLASS_H1_LABEL);
+
+        var description_label = new Gtk.Label (_("Create an elementary OS app using one of the pre-made app templates")) {
+            wrap = true,
+            justify = CENTER
+        };
+        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        var left_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            valign = CENTER,
+            hexpand = true,
+            margin_start = 24,
+            margin_end = 24,
+            margin_bottom = 24
+        };
+        left_box.append (project_icon);
+        left_box.append (title_label);
+        left_box.append (description_label);
+
+        var stepper = new Widgets.Stepper () {
+            margin_start = 24
+        };
+        stepper.add_step ("1", _("App Type"));
+        stepper.add_step ("2", _("Developer Data"));
+        stepper.add_step ("3", _("Application Data"));
+
+        stepper.activeStepChange.connect (() => {
+            print ("Index %d\n".printf (stepper.active_index));
+        });
 
         var form_view = new Views.Form ();
         var success_view = new Views.Success ();
@@ -39,9 +71,30 @@ public class MainWindow : Gtk.ApplicationWindow {
         main_stack.add_named (form_view, "form");
         main_stack.add_named (success_view, "success");
 
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        form_box.append (stepper);
+        form_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 12,
+            margin_bottom = 12
+        });
+        form_box.append (main_stack);
+
+        var main_box = new Gtk.CenterBox () {
+            hexpand = true,
+            vexpand = true
+        };
+
+        main_box.start_widget = left_box;
+        main_box.center_widget = new Gtk.Separator (Gtk.Orientation.VERTICAL) {
+            margin_bottom = 32
+        };
+        main_box.end_widget = form_box;
+
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = main_stack;
+		toolbar_view.content = main_box;
 
         child = toolbar_view;
 

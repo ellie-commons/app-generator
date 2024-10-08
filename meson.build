@@ -45,6 +45,7 @@ executable(
     'src/MainWindow.vala',
     'src/Views/Form.vala',
     'src/Views/Success.vala',
+    'src/Widgets/Stepper.vala',
     dependencies: deps,
     install: true
 )

@@ -13,30 +13,6 @@ public class Views.Form : Adw.Bin {
     public signal void created (string project_name, string location);
 
     construct {
-        var project_icon = new Gtk.Image.from_icon_name ("applications-development") {
-            pixel_size = 96
-        };
-
-        var title_label = new Gtk.Label (_("App Generator"));
-        title_label.add_css_class (Granite.STYLE_CLASS_H1_LABEL);
-
-        var description_label = new Gtk.Label (_("Create an elementary OS app using one of the pre-made app templates")) {
-            wrap = true,
-            justify = CENTER
-        };
-        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        var left_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            valign = CENTER,
-            hexpand = true,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24
-        };
-        left_box.append (project_icon);
-        left_box.append (title_label);
-        left_box.append (description_label);
-
         Regex? project_name_regex = null;
         Regex? identifier_regex = null;
         try {
@@ -99,12 +75,22 @@ public class Views.Form : Adw.Bin {
 
         var create_button = new Gtk.Button () {
             child = button_stack,
-            margin_top = 24,
-            sensitive = false
+            margin_bottom = 32,
+            sensitive = false,
+            vexpand = true,
+            valign = END
         };
         create_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
         var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        form_box.append (new Gtk.Label (_("Step 1/3")) {
+            halign = START,
+            css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+        });
+        form_box.append (new Gtk.Label (_("Sign Up")) {
+            halign = START,
+            css_classes = { Granite.STYLE_CLASS_H1_LABEL }
+        });
         form_box.append (new Granite.HeaderLabel (_("Project Name:")));
         form_box.append (project_name_entry);
         form_box.append (project_name_description);
@@ -117,29 +103,18 @@ public class Views.Form : Adw.Bin {
         form_box.append (location_entry);
         form_box.append (create_button);
 
-        var right_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 24,
             margin_end = 24,
             hexpand = true
         };
 
-        right_box.append (form_box);
-
-        var main_box = new Gtk.CenterBox () {
-            hexpand = true,
-            vexpand = true
-        };
-
-        main_box.start_widget = left_box;
-        main_box.center_widget = new Gtk.Separator (Gtk.Orientation.VERTICAL) {
-            margin_bottom = 32
-        };
-        main_box.end_widget = right_box;
+        content_box.append (form_box);
 
         toast = new Granite.Toast ("");
 
         var overlay = new Gtk.Overlay () {
-            child = main_box
+            child = content_box
         };
         overlay.add_overlay (toast);
         overlay.set_measure_overlay (toast, true);

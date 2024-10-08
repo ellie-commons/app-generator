@@ -9,3 +9,13 @@
 .fancy-turn.animation {
     animation: fancy-turn 0.7s ease-in-out;
 }
+
+.number {
+    background: #8cd5ff;
+    border-radius: 6px;
+    color: #0d52bf;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
