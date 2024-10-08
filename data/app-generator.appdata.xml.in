@@ -15,8 +15,14 @@
 			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ecommunity.app-generator.png</image>
 		</screenshot>
 	</screenshots>
+	<kudos>
+    	<kudo>ModernToolkit</kudo>
+		<kudo>HiDpiIcon</kudo>
+	</kudos>
 	<developer_name translate="no">elementary Community</developer_name>
-
+	<url type="homepage">https://github.com/elementary-community/app-generator</url>
+	<url type="bugtracker">https://github.com/elementary-community/app-generator/issues</url>
+	<launchable type="desktop-id">io.github.ecommunity.app-generator.desktop</launchable>
 	<releases>
 		<release version="1.0.0" date="2024-10-08">
 		<description>
@@ -24,10 +30,7 @@
 		</description>
 		</release>
   	</releases>
-
-	<url type="homepage">https://github.com/elementary-community/app-generator</url>
-	<url type="bugtracker">https://github.com/elementary-community/app-generator/issues</url>
-	<launchable type="desktop-id">io.github.ecommunity.app-generator.desktop</launchable>
+    <content_rating type="oars-1.1" />
 	<custom>
 		<value key="x-appcenter-color-primary">#603461</value>
 		<value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>
