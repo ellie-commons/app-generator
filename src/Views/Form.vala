@@ -1,6 +1,6 @@
 /*
 * SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2021 Your Name <you@email.com>
+* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
 */
 
 public class Views.Form : Adw.Bin {
@@ -10,7 +10,11 @@ public class Views.Form : Adw.Bin {
     private Gtk.Entry location_entry;
     private Granite.Toast toast;
 
+    public signal void back ();
     public signal void created (string project_name, string location);
+
+    public string developer_name { get; set; }
+    public string developer_email { get; set; }
 
     construct {
         Regex? project_name_regex = null;
@@ -73,35 +77,41 @@ public class Views.Form : Adw.Bin {
         button_stack.add_named (new Gtk.Label (_("Create Project")), "button");
         button_stack.add_named (spinner, "spinner");
 
+        var back_button = new Gtk.Button () {
+            child = new Gtk.Image.from_icon_name ("go-previous-symbolic")
+        };
+
         var create_button = new Gtk.Button () {
             child = button_stack,
-            margin_bottom = 32,
-            sensitive = false,
-            vexpand = true,
-            valign = END
+            hexpand = true,
+            sensitive = false
         };
         create_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
+        var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            vexpand = true,
+            valign = END,
+            margin_bottom = 32,
+        };
+        buttons_box.append (back_button);
+        buttons_box.append (create_button);
+
         var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        form_box.append (new Gtk.Label (_("Step 1/3")) {
-            halign = START,
-            css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
-        });
-        form_box.append (new Gtk.Label (_("Sign Up")) {
+        form_box.append (new Gtk.Label (_("Aplication")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
         form_box.append (new Granite.HeaderLabel (_("Project Name:")));
         form_box.append (project_name_entry);
-        form_box.append (project_name_description);
+        //  form_box.append (project_name_description);
         form_box.append (new Granite.HeaderLabel (_("Organization Identifier:")));
         form_box.append (identifier_entry);
-        form_box.append (identifier_description);
+        //  form_box.append (identifier_description);
         form_box.append (new Granite.HeaderLabel (_("Aplication ID:")));
         form_box.append (aplication_id_entry);
         form_box.append (new Granite.HeaderLabel (_("Location:")));
         form_box.append (location_entry);
-        form_box.append (create_button);
+        form_box.append (buttons_box);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 24,
@@ -151,6 +161,10 @@ public class Views.Form : Adw.Bin {
                     }
                 });
             }
+        });
+
+        back_button.clicked.connect (() => {
+            back ();
         });
 
         create_button.clicked.connect (() => {
@@ -204,6 +218,8 @@ public class Views.Form : Adw.Bin {
         rename_file (appdata_file, new_appdata_file);
         set_file_content (new_appdata_file, "{{APPLICATION_ID}}", aplication_id);
         set_file_content (new_appdata_file, "{{PROJECT_NAME}}", project_name);
+        set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
+        set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
 
         // Desltop Files
         string desktop_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.desktop.in");
@@ -233,11 +249,15 @@ public class Views.Form : Adw.Bin {
         string src_application_file = GLib.Path.build_filename (project_folder, "src", "Application.vala");
         set_file_content (src_application_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
         set_file_content (src_application_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
+        set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
 
         // src window
         string src_window_file = GLib.Path.build_filename (project_folder, "src", "MainWindow.vala");
         set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
         set_file_content (src_window_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
+        set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
 
         created (project_name_entry.text, location_entry.text);
     }
@@ -246,7 +266,6 @@ public class Views.Form : Adw.Bin {
         project_name_entry.text = "";
         identifier_entry.text = "";
         aplication_id_entry.text = "";
-        location_entry.text = "";
     }
 
     private void set_file_content (string filename, string key, string value) {

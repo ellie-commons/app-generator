@@ -1,6 +1,6 @@
 /*
 * SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2024 Alain <Alainmh23@gmail.com>
+* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
 */
 
 public class Widgets.Stepper : Gtk.Grid {
@@ -33,12 +33,12 @@ public class Widgets.Stepper : Gtk.Grid {
     private Gee.HashMap<int, Gtk.Button> stepper_map = new Gee.HashMap<int, Gtk.Button> ();
 
     construct {
-        main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 24);
+        main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         attach (main_box, 0, 0);
     }
 
-    public void add_step (string number, string name) {
-        var number_button = new Gtk.Button.with_label (number) {
+    public void add_step (string name) {
+        var number_button = new Gtk.Button.with_label ((index + 1).to_string ()) {
             width_request = 24
         };
         number_button.set_data ("index", index);
@@ -47,9 +47,9 @@ public class Widgets.Stepper : Gtk.Grid {
             number_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
         }
 
-        number_button.clicked.connect (() => {
-            active_index = number_button.get_data ("index");
-        });
+        //  number_button.clicked.connect (() => {
+        //      active_index = number_button.get_data ("index");
+        //  });
 
         var name_label = new Gtk.Label (name);
         name_label.add_css_class ("fw-500");
@@ -57,6 +57,15 @@ public class Widgets.Stepper : Gtk.Grid {
         var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         button_box.append (number_button);
         button_box.append (name_label);
+
+        if (index > 0) {
+            main_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+                width_request = 24,
+                valign = CENTER,
+                margin_start = 12,
+                margin_end = 12
+            });
+        }
 
         main_box.append (button_box);
         

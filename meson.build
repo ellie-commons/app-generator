@@ -43,6 +43,7 @@ executable(
     gresource,
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/Views/Developer.vala',
     'src/Views/Form.vala',
     'src/Views/Success.vala',
     'src/Widgets/Stepper.vala',

@@ -1,6 +1,6 @@
 /*
 * SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2021 Your Name <you@email.com>
+* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
 */
 
 public class Views.Success : Adw.Bin {
@@ -28,10 +28,11 @@ public class Views.Success : Adw.Bin {
         };
 
         var success_label = new Gtk.Label (_("The project was created successfully")) {
-            wrap = true
+            wrap = true,
+            justify = CENTER
         };
 
-        success_label.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
+        success_label.add_css_class (Granite.STYLE_CLASS_H1_LABEL);
 
         var option_listbox = new Gtk.ListBox () {
             margin_top = 24
@@ -41,13 +42,15 @@ public class Views.Success : Adw.Bin {
         option_listbox.add_css_class ("separators");
 
         option_listbox.append (create_row (_("Open in the File Browser"), "folder"));
-        option_listbox.append (create_row (_("Open in Terminal"), "utilities-terminal"));
+        //  option_listbox.append (create_row (_("Open in Terminal"), "utilities-terminal"));
         option_listbox.append (create_row (_("Create New Project"), "window-new"));
 
         var success_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             vexpand = true,
             valign = CENTER,
-            halign = CENTER
+            halign = CENTER,
+            margin_start = 24,
+            margin_end = 24
         };
 
         success_box.append (success_icon);
@@ -59,8 +62,6 @@ public class Views.Success : Adw.Bin {
         option_listbox.row_activated.connect ((row) => {
             if (row.get_index () == 0) {
                 open_file_browser ();
-            } else if (row.get_index () == 1) {
-                open_terminal ();
             } else {
                 back ();
             }

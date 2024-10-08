@@ -1,6 +1,6 @@
 /*
 * SPDX-License-Identifier: GPL-3.0-or-later
-* SPDX-FileCopyrightText: 2024 Alain <Alainmh23@gmail.com>
+* SPDX-FileCopyrightText: 2024 Alain <alainmh23@gmail.com>
 */
 
 public class MainWindow : Gtk.ApplicationWindow {
@@ -42,55 +42,48 @@ public class MainWindow : Gtk.ApplicationWindow {
 
         var left_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             valign = CENTER,
-            hexpand = true,
-            margin_start = 24,
-            margin_end = 24,
-            margin_bottom = 24
+            margin_start = 64,
+            margin_end = 64,
+            margin_bottom = 32
         };
         left_box.append (project_icon);
         left_box.append (title_label);
         left_box.append (description_label);
 
         var stepper = new Widgets.Stepper () {
-            margin_start = 24
+            margin_start = 24,
+            margin_end = 24,
+            margin_bottom = 24
         };
-        stepper.add_step ("1", _("App Type"));
-        stepper.add_step ("2", _("Developer Data"));
-        stepper.add_step ("3", _("Application Data"));
+        stepper.add_step (_("Developer"));
+        stepper.add_step (_("Application"));
+        stepper.add_step (_("Finalized"));
 
-        stepper.activeStepChange.connect (() => {
-            print ("Index %d\n".printf (stepper.active_index));
-        });
-
+        var developer_view = new Views.Developer ();
         var form_view = new Views.Form ();
         var success_view = new Views.Success ();
 
         main_stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
         };
+        main_stack.add_named (developer_view, "developer");
         main_stack.add_named (form_view, "form");
         main_stack.add_named (success_view, "success");
 
-        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         form_box.append (stepper);
-        form_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 24,
-            margin_end = 24,
-            margin_top = 12,
-            margin_bottom = 12
-        });
         form_box.append (main_stack);
 
-        var main_box = new Gtk.CenterBox () {
+        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        main_box.start_widget = left_box;
-        main_box.center_widget = new Gtk.Separator (Gtk.Orientation.VERTICAL) {
+        main_box.append (left_box);
+        main_box.append (new Gtk.Separator (Gtk.Orientation.VERTICAL) {
             margin_bottom = 32
-        };
-        main_box.end_widget = form_box;
+        });
+        main_box.append (form_box);
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
@@ -114,17 +107,33 @@ public class MainWindow : Gtk.ApplicationWindow {
         form_view.created.connect ((project_naame, location) => {
             success_view.project_location = location + "/" + project_naame;
 
+            stepper.active_index = 2;
             main_stack.visible_child_name = "success";
             success_view.animation = true;
 
             Timeout.add_once (1000, () => {
                 success_view.animation = false;
-                form_view.reset_form ();
             });
         });
 
-        success_view.back.connect (() => {
+        form_view.back.connect (() => {
+            main_stack.visible_child_name = "developer";
+        });
+
+        developer_view.next.connect ((name, email) => {
+            stepper.active_index = 1;
             main_stack.visible_child_name = "form";
+
+            form_view.developer_name = name;
+            form_view.developer_email = email;
+        });
+
+        success_view.back.connect (() => {
+            stepper.active_index = 0;
+            main_stack.visible_child_name = "developer";
+
+            developer_view.reset_form ();
+            form_view.reset_form ();
         });
     }
 }

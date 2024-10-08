@@ -27,9 +27,23 @@ cd build
 ninja
 ```
 
-To install, use `ninja install`, then execute with `io.github.elementary-community.app-generator`
+To install, use `ninja install`, then execute with `io.github.ecommunity.app-generator`
 
 ```bash
 ninja install
-io.github.elementary-community.app-generator
+io.github.ecommunity.app-generator
+```
+
+## Flatpak
+
+Run `flatpak-builder` to configure the build environment, download dependencies, build, and install
+
+```bash
+    flatpak-builder build io.github.ecommunity.app-generator.yml --user --install --force-clean --install-deps-from=appcenter
+```
+
+Then execute with
+
+```bash
+    flatpak run io.github.ecommunity.app-generator
 ```

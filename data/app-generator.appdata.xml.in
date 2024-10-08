@@ -16,6 +16,15 @@
 		</screenshot>
 	</screenshots>
 	<developer_name translate="no">elementary Community</developer_name>
+
+	<releases>
+		<release version="1.0.0" date="2024-10-08">
+		<description>
+			<p>First Release!!!</p>
+		</description>
+		</release>
+  	</releases>
+
 	<url type="homepage">https://github.com/elementary-community/app-generator</url>
 	<url type="bugtracker">https://github.com/elementary-community/app-generator/issues</url>
 	<launchable type="desktop-id">io.github.ecommunity.app-generator.desktop</launchable>
