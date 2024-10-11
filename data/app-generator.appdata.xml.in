@@ -16,7 +16,7 @@
 		</screenshot>
 	</screenshots>
 	<kudos>
-    	<kudo>ModernToolkit</kudo>
+		<kudo>ModernToolkit</kudo>
 		<kudo>HiDpiIcon</kudo>
 	</kudos>
 	<developer_name translate="no">elementary Community</developer_name>
@@ -25,12 +25,12 @@
 	<launchable type="desktop-id">io.github.ecommunity.app-generator.desktop</launchable>
 	<releases>
 		<release version="1.0.0" date="2024-10-08">
-		<description>
-			<p>First Release!!!</p>
-		</description>
+			<description>
+				<p>First Release!!!</p>
+			</description>
 		</release>
-  	</releases>
-    <content_rating type="oars-1.1" />
+	</releases>
+	<content_rating type="oars-1.1" />
 	<custom>
 		<value key="x-appcenter-color-primary">#603461</value>
 		<value key="x-appcenter-color-primary-text">rgb(255, 255, 255)</value>

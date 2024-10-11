@@ -19,3 +19,11 @@
 .fw-500 {
     font-weight: 500;
 }
+
+.animation {
+    transition: all 175ms ease-in-out;
+}
+
+.animation.active {
+    animation: fancy-turn 0.7s ease-in-out;
+}

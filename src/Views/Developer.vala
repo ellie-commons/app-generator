@@ -19,7 +19,8 @@ public class Views.Developer : Adw.Bin {
         }
 
         name_entry = new Granite.ValidatedEntry () {
-            margin_top = 6
+            margin_top = 6,
+            text = GLib.Environment.get_real_name ()
         };
 
         email_entry = new Granite.ValidatedEntry () {
