@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.elementary-community.app-generator\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-13 09:15+0300\n"
+"POT-Creation-Date: 2024-10-13 09:20+0300\n"
 "PO-Revision-Date: 2024-09-19 11:25-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,10 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/MainWindow.vala:15 src/MainWindow.vala:34
+#: data/app-generator.appdata.xml.in:6 data/app-generator.desktop.in:6
 msgid "App Generator"
 msgstr ""
 
-#: src/MainWindow.vala:37
+#: src/MainWindow.vala:37 data/app-generator.appdata.xml.in:7
 msgid "Create an elementary OS app using one of the pre-made app templates"
 msgstr ""
 
@@ -95,4 +96,22 @@ msgstr ""
 #. option_listbox.append (create_row (_("Open in Terminal"), "utilities-terminal"));
 #: src/Views/Success.vala:46
 msgid "Create New Project"
+msgstr ""
+
+#: data/app-generator.appdata.xml.in:9
+msgid ""
+"App Generator streamlines the process of creating Vala and GTK projects, "
+"allowing you to quickly get started without having to configure everything "
+"from scratch. With just a few clicks, it generates a well-organized and "
+"functional project structure, optimizing your workflow and saving you from "
+"repetitive setup tasks. Perfect for developers who want to focus on coding "
+"without worrying about configuration details."
+msgstr ""
+
+#: data/app-generator.appdata.xml.in:29
+msgid "First Release!!!"
+msgstr ""
+
+#: data/app-generator.desktop.in:7
+msgid "Create an elementary OS app using one of the pre-made app templates."
 msgstr ""

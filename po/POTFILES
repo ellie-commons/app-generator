@@ -4,3 +4,5 @@ src/Views/Developer.vala
 src/Views/Form.vala
 src/Views/Success.vala
 src/Widgets/Stepper.vala
+data/app-generator.appdata.xml.in
+data/app-generator.desktop.in
