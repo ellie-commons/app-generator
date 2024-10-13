@@ -1,54 +1,54 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Russian translations for io.github.elementary-community.app-generator package.
+# Copyright (C) 2024 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the io.github.ecommunity.app-generator package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Leo <lenemter@gmail.com>, 2024.
 #
-#, fuzzy
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.ecommunity.app-generator\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-13 09:33+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2024-10-13 09:33+0300\n"
+"Last-Translator: Leo <lenemter@gmail.com>\n"
+"Language-Team: none\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/MainWindow.vala:15 src/MainWindow.vala:34
 #: data/app-generator.appdata.xml.in:6 data/app-generator.desktop.in:6
 msgid "App Generator"
-msgstr ""
+msgstr "App Generator"
 
 #: src/MainWindow.vala:37 data/app-generator.appdata.xml.in:7
 msgid "Create an elementary OS app using one of the pre-made app templates"
-msgstr ""
+msgstr "Создавайте приложения для elementary OS с помощью темплейтов"
 
 #: src/MainWindow.vala:58 src/Views/Developer.vala:40
 msgid "Developer"
-msgstr ""
+msgstr "Разработчик"
 
 #: src/MainWindow.vala:59 src/Views/Form.vala:100
 msgid "Application"
-msgstr ""
+msgstr "Приложение"
 
 #: src/MainWindow.vala:60
 msgid "Finalized"
-msgstr ""
+msgstr "Готово"
 
 #: src/Views/Developer.vala:31
 msgid "Next"
-msgstr ""
+msgstr "Далее"
 
 #: src/Views/Developer.vala:44
 msgid "Name:"
-msgstr ""
+msgstr "Имя:"
 
 #: src/Views/Developer.vala:46
 msgid "Email:"
-msgstr ""
+msgstr "Эл. почта:"
 
 #: src/Views/Form.vala:34
 msgid ""
@@ -56,47 +56,53 @@ msgid ""
 "name should be in lower case without spaces and should not start with a "
 "number."
 msgstr ""
+"Уникальное имя, которое будет использоваться для папки проекта и других "
+"ресурсов. Имя должно быть написано в нижнем регистре без пробелов и не "
+"должно начинаться с цифры."
 
 #: src/Views/Form.vala:47
 msgid ""
 "A reverse domain-name identifier used to identify the application, such as "
 "'io.github.username'. It may not contain dashes."
 msgstr ""
+"Идентификатор в виде обратной нотации доменного имени, который будет "
+"использоваться приложением. Например, 'io.github.username'. Он не должен "
+"содержать пробелы."
 
 #: src/Views/Form.vala:77
 msgid "Create Project"
-msgstr ""
+msgstr "Создать проект"
 
 #: src/Views/Form.vala:104
 msgid "Project Name:"
-msgstr ""
+msgstr "Название проекта"
 
 #. form_box.append (project_name_description);
 #: src/Views/Form.vala:107
 msgid "Organization Identifier:"
-msgstr ""
+msgstr "Идентификатор организации:"
 
 #. form_box.append (identifier_description);
 #: src/Views/Form.vala:110
 msgid "Application ID:"
-msgstr ""
+msgstr "ID приложения:"
 
 #: src/Views/Form.vala:112
 msgid "Location:"
-msgstr ""
+msgstr "Папка:"
 
 #: src/Views/Success.vala:30
 msgid "The project was created successfully"
-msgstr ""
+msgstr "Проект успешно создан"
 
 #: src/Views/Success.vala:44
 msgid "Open in the File Browser"
-msgstr ""
+msgstr "Открыть в Файлах"
 
 #. option_listbox.append (create_row (_("Open in Terminal"), "utilities-terminal"));
 #: src/Views/Success.vala:46
 msgid "Create New Project"
-msgstr ""
+msgstr "Создать новый проект"
 
 #: data/app-generator.appdata.xml.in:9
 msgid ""
@@ -107,11 +113,17 @@ msgid ""
 "repetitive setup tasks. Perfect for developers who want to focus on coding "
 "without worrying about configuration details."
 msgstr ""
+"App Generator ускоряет процесс создания приложений на Vala и GTK, без "
+"необходимости начинать всё с чистого листа. С помощью нескольких кликов он "
+"создаёт хорошо-организованную и функциональную структуру проекта, "
+"оптимизируя ваш рабочий процесс, избавляя от необходимости делать одно и то "
+"же каждый раз. Идеально подходит для разработчиков, которые хотят "
+"программировать, не беспокоясь о конфигурации."
 
 #: data/app-generator.appdata.xml.in:29
 msgid "First Release!!!"
-msgstr ""
+msgstr "Первый выпуск!!!"
 
 #: data/app-generator.desktop.in:7
 msgid "Create an elementary OS app using one of the pre-made app templates."
-msgstr ""
+msgstr "Создавайте приложения для elementary OS с помощью темплейтов"
