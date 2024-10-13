@@ -6,7 +6,7 @@
 public class Views.Form : Adw.Bin {
     private Granite.ValidatedEntry project_name_entry;
     private Granite.ValidatedEntry identifier_entry;
-    private Gtk.Entry aplication_id_entry;
+    private Gtk.Entry application_id_entry;
     private Gtk.Entry location_entry;
     private Granite.Toast toast;
 
@@ -52,7 +52,7 @@ public class Views.Form : Adw.Bin {
         identifier_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         identifier_description.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        aplication_id_entry = new Gtk.Entry () {
+        application_id_entry = new Gtk.Entry () {
             margin_top = 6,
             editable = false
         };
@@ -97,7 +97,7 @@ public class Views.Form : Adw.Bin {
         buttons_box.append (create_button);
 
         var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        form_box.append (new Gtk.Label (_("Aplication")) {
+        form_box.append (new Gtk.Label (_("Application")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
@@ -107,8 +107,8 @@ public class Views.Form : Adw.Bin {
         form_box.append (new Granite.HeaderLabel (_("Organization Identifier:")));
         form_box.append (identifier_entry);
         //  form_box.append (identifier_description);
-        form_box.append (new Granite.HeaderLabel (_("Aplication ID:")));
-        form_box.append (aplication_id_entry);
+        form_box.append (new Granite.HeaderLabel (_("Application ID:")));
+        form_box.append (application_id_entry);
         form_box.append (new Granite.HeaderLabel (_("Location:")));
         form_box.append (location_entry);
         form_box.append (buttons_box);
@@ -132,12 +132,12 @@ public class Views.Form : Adw.Bin {
         child = overlay;
 
         project_name_entry.changed.connect (() => {
-            aplication_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
+            application_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
             create_button.sensitive = project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
         });
 
         identifier_entry.changed.connect (() => {
-            aplication_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
+            application_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
             create_button.sensitive = project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
         });
 
@@ -168,11 +168,11 @@ public class Views.Form : Adw.Bin {
         });
 
         create_button.clicked.connect (() => {
-            clone_repo_async (location_entry.text, project_name_entry.text, aplication_id_entry.text, button_stack);
+            clone_repo_async (location_entry.text, project_name_entry.text, application_id_entry.text, button_stack);
         });
     }
 
-    public void clone_repo_async (string destination_folder, string project_name, string aplication_id, Gtk.Stack button_stack) {
+    public void clone_repo_async (string destination_folder, string project_name, string application_id, Gtk.Stack button_stack) {
         button_stack.visible_child_name = "spinner";
         string[] command = { "git", "-C", destination_folder, "clone", "-b", "blank", REPOSITORY_TEMPLATE_URL, project_name };
         GLib.Subprocess process = new GLib.Subprocess.newv (command, SubprocessFlags.STDOUT_PIPE | SubprocessFlags.STDERR_PIPE);
@@ -180,7 +180,7 @@ public class Views.Form : Adw.Bin {
         process.wait_check_async.begin (null, (obj, res) => {
             try {
                 process.wait_check_async.end (res);
-                set_project_values (destination_folder, project_name, aplication_id);
+                set_project_values (destination_folder, project_name, application_id);
             } catch (Error e) {
                 string stdout_buf;
                 string stderr_buf;
@@ -192,31 +192,31 @@ public class Views.Form : Adw.Bin {
         });
     }
 
-    private void set_project_values (string destination_folder, string project_name, string aplication_id) {
+    private void set_project_values (string destination_folder, string project_name, string application_id) {
         string project_folder =  GLib.Path.build_filename (destination_folder, project_name);
-        string aplication_id_schema = aplication_id.replace (".", "/");
+        string application_id_schema = application_id.replace (".", "/");
 
         // Readme File
         string readme_file = GLib.Path.build_filename (project_folder, "README.md");
-        set_file_content (readme_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (readme_file, "{{APPLICATION_ID}}", application_id);
 
         // Meson File
         string meson_file = GLib.Path.build_filename (project_folder, "meson.build");
-        set_file_content (meson_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (meson_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (meson_file, "{{PROJECT_NAME}}", project_name);
 
         // Flatpak File
         string flatpak_file = GLib.Path.build_filename (project_folder, "{{APPLICATION_ID}}.yml");
-        string new_flatpak_file = GLib.Path.build_filename (project_folder, aplication_id + ".yml");
+        string new_flatpak_file = GLib.Path.build_filename (project_folder, application_id + ".yml");
         rename_file (flatpak_file, new_flatpak_file);
-        set_file_content (new_flatpak_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_flatpak_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_flatpak_file, "{{PROJECT_NAME}}", project_name);
 
         // AppData Files
         string appdata_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.appdata.xml.in");
         string new_appdata_file = GLib.Path.build_filename (project_folder, "data", project_name + ".appdata.xml.in");
         rename_file (appdata_file, new_appdata_file);
-        set_file_content (new_appdata_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_appdata_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_appdata_file, "{{PROJECT_NAME}}", project_name);
         set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
         set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
@@ -225,21 +225,21 @@ public class Views.Form : Adw.Bin {
         string desktop_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.desktop.in");
         string new_desktop_file = GLib.Path.build_filename (project_folder, "data", project_name + ".desktop.in");
         rename_file (desktop_file, new_desktop_file);
-        set_file_content (new_desktop_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_desktop_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_desktop_file, "{{PROJECT_NAME}}", project_name);
 
         // Gresource Files
         string gresource_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.gresource.xml");
         string new_gresource_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gresource.xml");
         rename_file (gresource_file, new_gresource_file);
-        set_file_content (new_gresource_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
+        set_file_content (new_gresource_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
         
         // Gschema Files
         string gschema_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.gschema.xml");
         string new_gschema_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gschema.xml");
         rename_file (gschema_file, new_gschema_file);
-        set_file_content (new_gschema_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
-        set_file_content (new_gschema_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (new_gschema_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
+        set_file_content (new_gschema_file, "{{APPLICATION_ID}}", application_id);
 
         // data meson
         string data_meson_file = GLib.Path.build_filename (project_folder, "data", "meson.build");
@@ -247,15 +247,15 @@ public class Views.Form : Adw.Bin {
 
         // src app
         string src_application_file = GLib.Path.build_filename (project_folder, "src", "Application.vala");
-        set_file_content (src_application_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
-        set_file_content (src_application_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (src_application_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
+        set_file_content (src_application_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
         set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
 
         // src window
         string src_window_file = GLib.Path.build_filename (project_folder, "src", "MainWindow.vala");
-        set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", aplication_id_schema);
-        set_file_content (src_window_file, "{{APPLICATION_ID}}", aplication_id);
+        set_file_content (src_window_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
+        set_file_content (src_window_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
         set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
 
@@ -265,7 +265,7 @@ public class Views.Form : Adw.Bin {
     public void reset_form () {
         project_name_entry.text = "";
         identifier_entry.text = "";
-        aplication_id_entry.text = "";
+        application_id_entry.text = "";
     }
 
     private void set_file_content (string filename, string key, string value) {

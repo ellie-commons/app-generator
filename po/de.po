@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.elementary-community.app-generator\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-08 17:09-0500\n"
+"POT-Creation-Date: 2024-10-13 09:15+0300\n"
 "PO-Revision-Date: 2024-09-19 11:25-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Create an elementary OS app using one of the pre-made app templates"
 msgstr ""
 
-#: src/MainWindow.vala:58 src/Views/Developer.vala:39
+#: src/MainWindow.vala:58 src/Views/Developer.vala:40
 msgid "Developer"
 msgstr ""
 
-#: src/MainWindow.vala:59
+#: src/MainWindow.vala:59 src/Views/Form.vala:100
 msgid "Application"
 msgstr ""
 
@@ -37,15 +37,15 @@ msgstr ""
 msgid "Finalized"
 msgstr ""
 
-#: src/Views/Developer.vala:30
+#: src/Views/Developer.vala:31
 msgid "Next"
 msgstr ""
 
-#: src/Views/Developer.vala:43
+#: src/Views/Developer.vala:44
 msgid "Name:"
 msgstr ""
 
-#: src/Views/Developer.vala:45
+#: src/Views/Developer.vala:46
 msgid "Email:"
 msgstr ""
 
@@ -66,10 +66,6 @@ msgstr ""
 msgid "Create Project"
 msgstr ""
 
-#: src/Views/Form.vala:100
-msgid "Aplication"
-msgstr ""
-
 #: src/Views/Form.vala:104
 msgid "Project Name:"
 msgstr ""
@@ -81,7 +77,7 @@ msgstr ""
 
 #. form_box.append (identifier_description);
 #: src/Views/Form.vala:110
-msgid "Aplication ID:"
+msgid "Application ID:"
 msgstr ""
 
 #: src/Views/Form.vala:112
