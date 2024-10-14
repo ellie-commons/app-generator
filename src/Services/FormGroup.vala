@@ -21,7 +21,7 @@ public class FormGroup : GLib.Object {
     }
 
     public FormGroup () {
-        controls = new Gee.ArrayList<FormControl>();
+        controls = new Gee.ArrayList<FormControl> ();
     }
 
     public void add_control (FormControl control) {
