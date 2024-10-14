@@ -18,7 +18,7 @@ public class MainWindow : Gtk.ApplicationWindow {
 
     static construct {
 		weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-		default_theme.add_resource_path ("/io/github/ecommunity/app-generator/");
+		default_theme.add_resource_path ("/io/github/ellie_commons/app-generator/");
 	}
 
     construct {

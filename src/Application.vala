@@ -19,7 +19,7 @@ public class AppGenerator : Gtk.Application {
 
     public AppGenerator () {
         Object (
-            application_id: "io.github.ecommunity.app-generator",
+            application_id: "io.github.ellie_commons.app-generator",
             flags: ApplicationFlags.FLAGS_NONE
         );
     }
@@ -55,7 +55,7 @@ public class AppGenerator : Gtk.Application {
         * Set maximize after height/width else window is min size on unmaximize
         * Bind maximize as SET else get get bad sizes
         */
-        var settings = new Settings ("io.github.ecommunity.app-generator");
+        var settings = new Settings ("io.github.ellie_commons.app-generator");
         settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
         settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
 
@@ -67,7 +67,7 @@ public class AppGenerator : Gtk.Application {
 
         // Use Css
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/io/github/ecommunity/app-generator/Application.css");
+        provider.load_from_resource ("/io/github/ellie_commons/app-generator/Application.css");
 
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (),

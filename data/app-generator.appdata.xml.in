@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>io.github.ecommunity.app-generator</id>
+	<id>io.github.ellie_commons.app-generator</id>
 	<metadata_license>CC-BY-4.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
 	<name>App Generator</name>
@@ -12,7 +12,7 @@
 	</description>
 	<screenshots>
 		<screenshot type="default">
-			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ecommunity.app-generator.png</image>
+			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png</image>
 		</screenshot>
 	</screenshots>
 	<kudos>
@@ -20,9 +20,14 @@
 		<kudo>HiDpiIcon</kudo>
 	</kudos>
 	<developer_name translate="no">elementary Community</developer_name>
+
+	<developer id="org.elementaryos">
+    	<name>elementary, Inc.</name>
+  	</developer>
+
 	<url type="homepage">https://github.com/elementary-community/app-generator</url>
 	<url type="bugtracker">https://github.com/elementary-community/app-generator/issues</url>
-	<launchable type="desktop-id">io.github.ecommunity.app-generator.desktop</launchable>
+	<launchable type="desktop-id">io.github.ellie_commons.app-generator.desktop</launchable>
 	<releases>
 		<release version="1.0.0" date="2024-10-08">
 			<description>
