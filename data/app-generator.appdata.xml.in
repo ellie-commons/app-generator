@@ -19,10 +19,9 @@
 		<kudo>ModernToolkit</kudo>
 		<kudo>HiDpiIcon</kudo>
 	</kudos>
-	<developer_name translate="no">elementary Community</developer_name>
 
-	<developer id="org.elementaryos">
-    	<name>elementary, Inc.</name>
+	<developer id="io.github.ellie-commons">
+    	<name>elementary Community</name>
   	</developer>
 
 	<url type="homepage">https://github.com/elementary-community/app-generator</url>
