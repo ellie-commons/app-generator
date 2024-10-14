@@ -13,7 +13,7 @@ public class Views.Success : Adw.Bin {
             } else {
                 success_icon.remove_css_class ("animation");
             }
-            
+
         }
     }
 
@@ -95,7 +95,7 @@ public class Views.Success : Adw.Bin {
         };
 
         var row_label = new Gtk.Label (title);
-        
+
         var row_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         row_box.append (row_icon);
         row_box.append (row_label);
