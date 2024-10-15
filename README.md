@@ -6,7 +6,7 @@
   <h3 align="center">Create an elementary OS app using one of the pre-made app templates</h3>
 </div>
 
-![Screenshot](https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png)
+![Screenshot](https://raw.githubusercontent.com/ellie-commons/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png)
 
 ## Building and Installation
 
