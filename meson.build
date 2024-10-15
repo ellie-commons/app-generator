@@ -1,6 +1,6 @@
 # project name and programming language
 project(
-  'io.github.ecommunity.app-generator',
+  'io.github.ellie_commons.app-generator',
   'vala', 'c',
   version: '0.1'
 )

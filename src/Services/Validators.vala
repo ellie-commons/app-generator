@@ -25,7 +25,7 @@ public class Validators.Regex : Validator {
         if (regex == null) {
             return true;
         }
-        
+
         return regex.match (value);
     }
 }

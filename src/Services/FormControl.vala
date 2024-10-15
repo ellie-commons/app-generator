@@ -10,13 +10,13 @@ public class FormControl : GLib.Object {
             if (value == null) {
                 return false;
             }
-    
+
             foreach (Validator validator in validators) {
                 if (!validator.validate (value)) {
                     return false;
                 }
             }
-    
+
             return true;
         }
     }

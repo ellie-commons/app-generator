@@ -62,7 +62,7 @@ public class Views.Form : Adw.Bin {
             secondary_icon_name = "folder-symbolic",
             text = GLib.Environment.get_user_special_dir (GLib.UserDirectory.TEMPLATES)
         };
-        
+
         var spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -193,7 +193,7 @@ public class Views.Form : Adw.Bin {
     }
 
     private void set_project_values (string destination_folder, string project_name, string application_id) {
-        string project_folder =  GLib.Path.build_filename (destination_folder, project_name);
+        string project_folder = GLib.Path.build_filename (destination_folder, project_name);
         string application_id_schema = application_id.replace (".", "/");
 
         // Readme File
@@ -233,7 +233,7 @@ public class Views.Form : Adw.Bin {
         string new_gresource_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gresource.xml");
         rename_file (gresource_file, new_gresource_file);
         set_file_content (new_gresource_file, "{{APPLICATION_ID_GSCHEMA}}", application_id_schema);
-        
+
         // Gschema Files
         string gschema_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.gschema.xml");
         string new_gschema_file = GLib.Path.build_filename (project_folder, "data", project_name + ".gschema.xml");
@@ -272,10 +272,10 @@ public class Views.Form : Adw.Bin {
         try {
             string content;
             FileUtils.get_contents (filename, out content);
-    
+
             string new_content = content.replace (key, value);
-    
-            FileUtils.set_contents (filename, new_content, -1);    
+
+            FileUtils.set_contents (filename, new_content, -1);
         } catch (Error e) {
             debug (e.message);
         }

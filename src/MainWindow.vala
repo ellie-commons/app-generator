@@ -17,15 +17,15 @@ public class MainWindow : Gtk.ApplicationWindow {
     }
 
     static construct {
-		weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-		default_theme.add_resource_path ("/io/github/ecommunity/app-generator/");
-	}
+        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
+        default_theme.add_resource_path ("/io/github/ellie_commons/app-generator/");
+    }
 
     construct {
         var headerbar = new Gtk.HeaderBar () {
-			title_widget = new Gtk.Label (null),
-			hexpand = true
-		};
+            title_widget = new Gtk.Label (null),
+            hexpand = true
+        };
 
         var project_icon = new Gtk.Image.from_icon_name ("applications-development") {
             pixel_size = 96
@@ -86,8 +86,8 @@ public class MainWindow : Gtk.ApplicationWindow {
         main_box.append (form_box);
 
         var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = main_box;
+        toolbar_view.add_top_bar (headerbar);
+        toolbar_view.content = main_box;
 
         child = toolbar_view;
 

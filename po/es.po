@@ -1,11 +1,11 @@
-# Spanish translations for io.github.elementary-community.app-generator package.
-# Copyright (C) 2024 THE io.github.elementary-community.app-generator'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the io.github.elementary-community.app-generator package.
+# Spanish translations for io.github.ellie_commons.app-generator package.
+# Copyright (C) 2024 THE io.github.ellie_commons.app-generator'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.ellie_commons.app-generator package.
 # Automatically generated, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: io.github.elementary-community.app-generator\n"
+"Project-Id-Version: io.github.ellie_commons.app-generator\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-13 09:15+0300\n"
 "PO-Revision-Date: 2024-09-19 11:25-0500\n"
