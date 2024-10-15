@@ -6,7 +6,7 @@
   <h3 align="center">Create an elementary OS app using one of the pre-made app templates</h3>
 </div>
 
-![Screenshot](https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ecommunity.app-generator.png)
+![Screenshot](https://raw.githubusercontent.com/ellie-commons/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png)
 
 ## Building and Installation
 
@@ -27,11 +27,11 @@ cd build
 ninja
 ```
 
-To install, use `ninja install`, then execute with `io.github.ecommunity.app-generator`
+To install, use `ninja install`, then execute with `io.github.ellie_commons.app-generator`
 
 ```bash
 ninja install
-io.github.ecommunity.app-generator
+io.github.ellie_commons.app-generator
 ```
 
 ## Flatpak
@@ -39,11 +39,11 @@ io.github.ecommunity.app-generator
 Run `flatpak-builder` to configure the build environment, download dependencies, build, and install
 
 ```bash
-    flatpak-builder build io.github.ecommunity.app-generator.yml --user --install --force-clean --install-deps-from=appcenter
+    flatpak-builder build io.github.ellie_commons.app-generator.yml --user --install --force-clean --install-deps-from=appcenter
 ```
 
 Then execute with
 
 ```bash
-    flatpak run io.github.ecommunity.app-generator
+    flatpak run io.github.ellie_commons.app-generator
 ```

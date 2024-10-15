@@ -18,7 +18,7 @@ public class Widgets.Stepper : Gtk.Grid {
             foreach (Gtk.Button button in stepper_map.values) {
                 button.remove_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
             }
-    
+
             if (stepper_map.has_key (value)) {
                 stepper_map.get (value).add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
             }
@@ -68,7 +68,7 @@ public class Widgets.Stepper : Gtk.Grid {
         }
 
         main_box.append (button_box);
-        
+
         stepper_map[index] = number_button;
         index++;
     }
