@@ -21,7 +21,7 @@ public class Views.Form : Adw.Bin {
         Regex? identifier_regex = null;
         try {
             project_name_regex = new Regex ("^[a-z]+[a-z0-9]*$");
-            identifier_regex = new Regex ("^[a-z]+\\.[a-z0-9]+(\\.[a-z0-9]+)*$");
+            identifier_regex = new Regex ("^[a-z]+\\.[a-z0-9_]+(\\.[a-z0-9_]+)*$");
         } catch (Error e) {
             critical (e.message);
         }
