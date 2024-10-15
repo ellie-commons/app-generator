@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>io.github.ellie_commons.app-generator</id>
-	<metadata_license>CC-BY-4.0</metadata_license>
-	<project_license>GPL-3.0-or-later</project_license>
-	<name>App Generator</name>
-	<summary>Create an elementary OS app using one of the pre-made app templates</summary>
-	<description>
-		<p>
-      		App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
-    	</p>
-	</description>
-	<screenshots>
-		<screenshot type="default">
-			<image>https://raw.githubusercontent.com/elementary-community/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png</image>
-		</screenshot>
-	</screenshots>
-	<kudos>
-		<kudo>ModernToolkit</kudo>
-		<kudo>HiDpiIcon</kudo>
-	</kudos>
-
-	<developer id="io.github.ellie-commons">
-    	<name>elementary Community</name>
-  	</developer>
-
-	<url type="homepage">https://github.com/elementary-community/app-generator</url>
-	<url type="bugtracker">https://github.com/elementary-community/app-generator/issues</url>
-	<launchable type="desktop-id">io.github.ellie_commons.app-generator.desktop</launchable>
-	<releases>
-		<release version="1.0.0" date="2024-10-08">
-			<description>
-				<p>First Release!!!</p>
-			</description>
-		</release>
-	</releases>
-	<content_rating type="oars-1.1" />
-	<custom>
-		<value key="x-appcenter-color-primary">#603461</value>
-	</custom>
+    <id>io.github.ellie_commons.app-generator</id>
+    <metadata_license>CC-BY-4.0</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+    <name>App Generator</name>
+    <summary>Create an elementary OS app using one of the pre-made app templates</summary>
+    <description>
+        <p>
+              App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
+        </p>
+    </description>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/ellie-commons/app-generator/refs/heads/main/data/io.github.ellie_commons.app-generator.png</image>
+        </screenshot>
+    </screenshots>
+    <kudos>
+        <kudo>ModernToolkit</kudo>
+        <kudo>HiDpiIcon</kudo>
+    </kudos>
+    <developer id="io.github.ellie_commons">
+        <name>elementary Commons</name>
+    </developer>
+    <url type="homepage">https://github.com/ellie-commons/app-generator</url>
+    <url type="bugtracker">https://github.com/ellie-commons/app-generator/issues</url>
+    <launchable type="desktop-id">io.github.ellie_commons.app-generator.desktop</launchable>
+    <releases>
+        <release version="1.0.0" date="2024-10-08">
+            <description>
+                <p>First Release!!!</p>
+            </description>
+        </release>
+    </releases>
+    <content_rating type="oars-1.1" />
+    <custom>
+        <value key="x-appcenter-color-primary">#603461</value>
+    </custom>
 </component>
