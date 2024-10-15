@@ -262,7 +262,7 @@ public class Views.Form : Adw.Bin {
         // Set Po files
         string po_extra_window_file = GLib.Path.build_filename (project_folder, "po", "extra", "POTFILES");
         set_file_content (po_extra_window_file, "{{PROJECT_NAME}}", project_name);
-        
+
         created (project_name_entry.text, location_entry.text);
     }
 
