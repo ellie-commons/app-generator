@@ -7,7 +7,7 @@
     <summary>Create an elementary OS app using one of the pre-made app templates</summary>
     <description>
         <p>
-              App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
+            App Generator streamlines the process of creating Vala and GTK projects, allowing you to quickly get started without having to configure everything from scratch. With just a few clicks, it generates a well-organized and functional project structure, optimizing your workflow and saving you from repetitive setup tasks. Perfect for developers who want to focus on coding without worrying about configuration details.
         </p>
     </description>
     <screenshots>
