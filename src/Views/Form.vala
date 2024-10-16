@@ -33,7 +33,7 @@ public class Views.Form : Adw.Bin {
         }
 
         var project_name_header = new Granite.HeaderLabel (_("Project Name:")) {
-            valign = END
+            valign = CENTER
         };
 
         var project_name_info = new Gtk.MenuButton () {
@@ -45,7 +45,7 @@ public class Views.Form : Adw.Bin {
         };
         project_name_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         project_name_info.add_css_class (Granite.STYLE_CLASS_FLAT);
-
+        
         var project_name_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_top = 12
         };
@@ -62,7 +62,7 @@ public class Views.Form : Adw.Bin {
         };
 
         var identifier_header = new Granite.HeaderLabel (_("Organization Identifier:")) {
-            valign = END
+            valign = CENTER
         };
 
         var identifier_info = new Gtk.MenuButton () {
@@ -130,6 +130,7 @@ public class Views.Form : Adw.Bin {
             vexpand = true,
             valign = END,
             margin_bottom = 32,
+            margin_top = 12
         };
         buttons_box.append (back_button);
         buttons_box.append (create_button);
