@@ -45,7 +45,7 @@ public class Views.Form : Adw.Bin {
         };
         project_name_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         project_name_info.add_css_class (Granite.STYLE_CLASS_FLAT);
-        
+
         var project_name_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_top = 12
         };
