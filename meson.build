@@ -46,6 +46,7 @@ executable(
     'src/Views/Developer.vala',
     'src/Views/Form.vala',
     'src/Views/Success.vala',
+    'src/Widgets/InvalidLabel.vala',
     'src/Widgets/Stepper.vala',
     dependencies: deps,
     install: true

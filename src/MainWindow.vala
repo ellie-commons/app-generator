@@ -85,9 +85,15 @@ public class MainWindow : Gtk.ApplicationWindow {
         });
         main_box.append (form_box);
 
+        var scrolled_window = new Gtk.ScrolledWindow () {
+            child = main_box,
+            vscrollbar_policy = NEVER,
+            hscrollbar_policy = NEVER
+        };
+
         var toolbar_view = new Adw.ToolbarView ();
         toolbar_view.add_top_bar (headerbar);
-        toolbar_view.content = main_box;
+        toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
 
@@ -126,6 +132,7 @@ public class MainWindow : Gtk.ApplicationWindow {
 
             form_view.developer_name = name;
             form_view.developer_email = email;
+            form_view.focus_name ();
         });
 
         success_view.back.connect (() => {
