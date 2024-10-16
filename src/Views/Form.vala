@@ -213,8 +213,8 @@ public class Views.Form : Adw.Bin {
         set_file_content (new_flatpak_file, "{{PROJECT_NAME}}", project_name);
 
         // AppData Files
-        string appdata_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.appdata.xml.in");
-        string new_appdata_file = GLib.Path.build_filename (project_folder, "data", project_name + ".appdata.xml.in");
+        string appdata_file = GLib.Path.build_filename (project_folder, "data", "{{PROJECT_NAME}}.metainfo.xml.in");
+        string new_appdata_file = GLib.Path.build_filename (project_folder, "data", project_name + ".metainfo.xml.in");
         rename_file (appdata_file, new_appdata_file);
         set_file_content (new_appdata_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_appdata_file, "{{PROJECT_NAME}}", project_name);
@@ -258,6 +258,10 @@ public class Views.Form : Adw.Bin {
         set_file_content (src_window_file, "{{APPLICATION_ID}}", application_id);
         set_file_content (new_appdata_file, "{{DEVELOPER_NAME}}", developer_name);
         set_file_content (new_appdata_file, "{{DEVELOPER_EMAIL}}", developer_email);
+
+        // Set Po files
+        string po_extra_window_file = GLib.Path.build_filename (project_folder, "po", "extra", "POTFILES");
+        set_file_content (po_extra_window_file, "{{PROJECT_NAME}}", project_name);
 
         created (project_name_entry.text, location_entry.text);
     }
