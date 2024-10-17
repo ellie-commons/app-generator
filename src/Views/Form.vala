@@ -32,74 +32,63 @@ public class Views.Form : Adw.Bin {
             critical (e.message);
         }
 
-        var project_name_header = new Granite.HeaderLabel (_("Project Name:")) {
-            valign = CENTER
-        };
-
-        var project_name_info = new Gtk.MenuButton () {
-            can_focus = false,
-            hexpand = true,
-            halign = END,
-            icon_name = "dialog-information-symbolic",
-            popover = build_info_popover (_("A unique name that is used for the project folder and other resources. The name should be in lower case without spaces and should not start with a number"))
-        };
-        project_name_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        project_name_info.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var project_name_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_top = 12
-        };
-        project_name_box.append (project_name_header);
-        project_name_box.append (project_name_info);
-
         project_name_entry = new Granite.ValidatedEntry () {
             regex = project_name_regex,
-            margin_top = 6
+        };
+
+        var project_name_header = new Granite.HeaderLabel (_("Project Name")) {
+            mnemonic_widget = project_name_entry,
+            secondary_text = _("A unique name that is used for the project folder and other resources. The name should be in lower case without spaces and should not start with a number")
         };
 
         var project_name_invalid = new Widgets.InvalidLabel () {
             text = _("Project name must start with a lowercase letter and contain only letters and numbers")
         };
 
-        var identifier_header = new Granite.HeaderLabel (_("Organization Identifier:")) {
-            valign = CENTER
-        };
-
-        var identifier_info = new Gtk.MenuButton () {
-            can_focus = false,
-            hexpand = true,
-            halign = END,
-            icon_name = "dialog-information-symbolic",
-            popover = build_info_popover (_("A reverse domain-name identifier used to identify the application, such as 'io.github.username'. It may not contain dashes"))
-        };
-        identifier_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        identifier_info.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var identifier_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_top = 12
-        };
-        identifier_box.append (identifier_header);
-        identifier_box.append (identifier_info);
+        var project_name_box = new Gtk.Box (VERTICAL, 6);
+        project_name_box.append (project_name_header);
+        project_name_box.append (project_name_entry);
+        project_name_box.append (project_name_invalid);
 
         identifier_entry = new Granite.ValidatedEntry () {
-            regex = identifier_regex,
-            margin_top = 6
+            placeholder_text = "io.github.username",
+            regex = identifier_regex
+        };
+
+        var identifier_header = new Granite.HeaderLabel (_("Organization Identifier")) {
+            secondary_text = _("A reverse domain-name identifier used to identify the application. It may not contain dashes"),
+            mnemonic_widget = identifier_entry,
         };
 
         var identifier_invalid = new Widgets.InvalidLabel () {
             text = _("App ID must start with a lowercase letter, use dots to separate parts, contain only letters and numbers, and replace hyphens (-) with underscores (_)")
         };
 
+        var identifier_box = new Gtk.Box (VERTICAL, 6);
+        identifier_box.append (identifier_header);
+        identifier_box.append (identifier_entry);
+        identifier_box.append (identifier_invalid);
+
         application_id_entry = new Gtk.Entry () {
-            margin_top = 6,
             editable = false
         };
 
+        var app_id_box = new Gtk.Box (VERTICAL, 6);
+        app_id_box.append (new Granite.HeaderLabel (_("Application ID")) {
+            mnemonic_widget = application_id_entry
+        });
+        app_id_box.append (application_id_entry);
+
         location_entry = new Gtk.Entry () {
-            margin_top = 6,
             secondary_icon_name = "folder-symbolic",
             text = GLib.Environment.get_user_special_dir (GLib.UserDirectory.TEMPLATES)
         };
+
+        var location_box = new Gtk.Box (VERTICAL, 6);
+        location_box.append (new Granite.HeaderLabel (_("Location")) {
+            mnemonic_widget = location_entry
+        });
+        location_box.append (location_entry);
 
         var spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
@@ -135,21 +124,15 @@ public class Views.Form : Adw.Bin {
         buttons_box.append (back_button);
         buttons_box.append (create_button);
 
-        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24);
         form_box.append (new Gtk.Label (_("Application")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
         form_box.append (project_name_box);
-        form_box.append (project_name_entry);
-        form_box.append (project_name_invalid);
         form_box.append (identifier_box);
-        form_box.append (identifier_entry);
-        form_box.append (identifier_invalid);
-        form_box.append (new Granite.HeaderLabel (_("Application ID:")));
-        form_box.append (application_id_entry);
-        form_box.append (new Granite.HeaderLabel (_("Location:")));
-        form_box.append (location_entry);
+        form_box.append (app_id_box);
+        form_box.append (location_box);
         form_box.append (buttons_box);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -334,24 +317,6 @@ public class Views.Form : Adw.Bin {
         } catch (GLib.Error e) {
             debug (e.message);
         }
-    }
-
-    private Gtk.Popover build_info_popover (string text) {
-        var label = new Gtk.Label (text) {
-            wrap = true,
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
-            max_width_chars = 24,
-            justify = CENTER
-        };
-
-        var popover = new Gtk.Popover () {
-            child = label
-        };
-
-        return popover;
     }
 
     public void focus_name () {

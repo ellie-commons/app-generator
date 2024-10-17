@@ -30,7 +30,6 @@ public class Widgets.InvalidLabel : Gtk.Grid {
     construct {
         text_label = new Gtk.Label (null) {
             xalign = 0,
-            margin_top = 6,
             wrap = true
         };
         text_label.add_css_class ("error");
