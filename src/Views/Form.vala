@@ -55,7 +55,7 @@ public class Views.Form : Adw.Bin {
             regex = identifier_regex
         };
 
-        var identifier_header = new Granite.HeaderLabel (_("Organization Identifier:")) {
+        var identifier_header = new Granite.HeaderLabel (_("Organization Identifier")) {
             secondary_text = _("A reverse domain-name identifier used to identify the application. It may not contain dashes"),
             mnemonic_widget = identifier_entry,
         };
