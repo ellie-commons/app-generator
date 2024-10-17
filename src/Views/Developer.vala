@@ -10,6 +10,12 @@ public class Views.Developer : Adw.Bin {
 
     public signal void next (string name, string email);
 
+    public bool is_valid {
+        get {
+            return name_entry.is_valid && email_entry.is_valid;
+        }
+    }
+
     construct {
         Regex? email_regex = null;
         try {
@@ -23,9 +29,17 @@ public class Views.Developer : Adw.Bin {
             text = GLib.Environment.get_real_name ()
         };
 
+        var name_invalid = new Widgets.InvalidLabel () {
+            text = _("This field is required")
+        };
+
         email_entry = new Granite.ValidatedEntry () {
             regex = email_regex,
             margin_top = 6
+        };
+
+        var email_invalid = new Widgets.InvalidLabel () {
+            text = _("The email is invalid")
         };
 
         next_button = new Gtk.Button.with_label (_("Next")) {
@@ -43,8 +57,10 @@ public class Views.Developer : Adw.Bin {
         });
         form_box.append (new Granite.HeaderLabel (_("Name:")));
         form_box.append (name_entry);
+        form_box.append (name_invalid);
         form_box.append (new Granite.HeaderLabel (_("Email:")));
         form_box.append (email_entry);
+        form_box.append (email_invalid);
         form_box.append (next_button);
 
         var content_box = new Adw.Bin () {
@@ -56,16 +72,29 @@ public class Views.Developer : Adw.Bin {
 
         child = content_box;
 
-        name_entry.changed.connect (check_valid);
-        email_entry.changed.connect (check_valid);
-
-        next_button.clicked.connect (() => {
-            next (name_entry.text, email_entry.text);
+        name_entry.changed.connect (() => {
+            check_valid ();
+            name_invalid.reveal_child = !name_entry.is_valid;
         });
+
+        email_entry.changed.connect (() => {
+            check_valid ();
+            email_invalid.reveal_child = !email_entry.is_valid;
+        });
+
+        name_entry.activate.connect (go_next);
+        email_entry.activate.connect (go_next);
+        next_button.clicked.connect (go_next);
+    }
+
+    private void go_next () {
+        if (is_valid) {
+            next (name_entry.text, email_entry.text);
+        }
     }
 
     private void check_valid () {
-        next_button.sensitive = name_entry.is_valid && email_entry.is_valid;
+        next_button.sensitive = is_valid;
     }
 
     public void reset_form () {

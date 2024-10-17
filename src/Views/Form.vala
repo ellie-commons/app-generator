@@ -16,6 +16,12 @@ public class Views.Form : Adw.Bin {
     public string developer_name { get; set; }
     public string developer_email { get; set; }
 
+    public bool is_valid {
+        get {
+            return project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
+        }
+    }
+
     construct {
         Regex? project_name_regex = null;
         Regex? identifier_regex = null;
@@ -26,31 +32,63 @@ public class Views.Form : Adw.Bin {
             critical (e.message);
         }
 
+        var project_name_header = new Granite.HeaderLabel (_("Project Name:")) {
+            valign = CENTER
+        };
+
+        var project_name_info = new Gtk.MenuButton () {
+            can_focus = false,
+            hexpand = true,
+            halign = END,
+            icon_name = "dialog-information-symbolic",
+            popover = build_info_popover (_("A unique name that is used for the project folder and other resources. The name should be in lower case without spaces and should not start with a number"))
+        };
+        project_name_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        project_name_info.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var project_name_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_top = 12
+        };
+        project_name_box.append (project_name_header);
+        project_name_box.append (project_name_info);
+
         project_name_entry = new Granite.ValidatedEntry () {
             regex = project_name_regex,
             margin_top = 6
         };
 
-        var project_name_description = new Gtk.Label (_("A unique name that is used for the project folder and other resources. The name should be in lower case without spaces and should not start with a number.")) {
-            wrap = true,
-            xalign = 0,
-            margin_top = 3
+        var project_name_invalid = new Widgets.InvalidLabel () {
+            text = _("Project name must start with a lowercase letter and contain only letters and numbers")
         };
-        project_name_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        project_name_description.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        var identifier_header = new Granite.HeaderLabel (_("Organization Identifier:")) {
+            valign = CENTER
+        };
+
+        var identifier_info = new Gtk.MenuButton () {
+            can_focus = false,
+            hexpand = true,
+            halign = END,
+            icon_name = "dialog-information-symbolic",
+            popover = build_info_popover (_("A reverse domain-name identifier used to identify the application, such as 'io.github.username'. It may not contain dashes"))
+        };
+        identifier_info.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        identifier_info.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var identifier_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_top = 12
+        };
+        identifier_box.append (identifier_header);
+        identifier_box.append (identifier_info);
 
         identifier_entry = new Granite.ValidatedEntry () {
             regex = identifier_regex,
             margin_top = 6
         };
 
-        var identifier_description = new Gtk.Label (_("A reverse domain-name identifier used to identify the application, such as 'io.github.username'. It may not contain dashes.")) {
-            wrap = true,
-            xalign = 0,
-            margin_top = 3
+        var identifier_invalid = new Widgets.InvalidLabel () {
+            text = _("App ID must start with a lowercase letter, use dots to separate parts, contain only letters and numbers, and replace hyphens (-) with underscores (_)")
         };
-        identifier_description.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        identifier_description.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         application_id_entry = new Gtk.Entry () {
             margin_top = 6,
@@ -92,6 +130,7 @@ public class Views.Form : Adw.Bin {
             vexpand = true,
             valign = END,
             margin_bottom = 32,
+            margin_top = 12
         };
         buttons_box.append (back_button);
         buttons_box.append (create_button);
@@ -101,12 +140,12 @@ public class Views.Form : Adw.Bin {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
-        form_box.append (new Granite.HeaderLabel (_("Project Name:")));
+        form_box.append (project_name_box);
         form_box.append (project_name_entry);
-        //  form_box.append (project_name_description);
-        form_box.append (new Granite.HeaderLabel (_("Organization Identifier:")));
+        form_box.append (project_name_invalid);
+        form_box.append (identifier_box);
         form_box.append (identifier_entry);
-        //  form_box.append (identifier_description);
+        form_box.append (identifier_invalid);
         form_box.append (new Granite.HeaderLabel (_("Application ID:")));
         form_box.append (application_id_entry);
         form_box.append (new Granite.HeaderLabel (_("Location:")));
@@ -133,16 +172,18 @@ public class Views.Form : Adw.Bin {
 
         project_name_entry.changed.connect (() => {
             application_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
-            create_button.sensitive = project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
+            create_button.sensitive = is_valid;
+            project_name_invalid.reveal_child = !project_name_entry.is_valid;
         });
 
         identifier_entry.changed.connect (() => {
             application_id_entry.text = identifier_entry.text + "." + project_name_entry.text;
-            create_button.sensitive = project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
+            create_button.sensitive = is_valid;
+            identifier_invalid.reveal_child = !identifier_entry.is_valid;
         });
 
         location_entry.changed.connect (() => {
-            create_button.sensitive = project_name_entry.is_valid && identifier_entry.is_valid && location_entry.text.length > 0;
+            create_button.sensitive = is_valid;
         });
 
         location_entry.icon_release.connect ((icon_pos) => {
@@ -285,7 +326,7 @@ public class Views.Form : Adw.Bin {
         }
     }
 
-    void rename_file (string old_name, string new_name) {
+    private void rename_file (string old_name, string new_name) {
         try {
             GLib.File old_file = GLib.File.new_for_path (old_name);
             GLib.File new_file = GLib.File.new_for_path (new_name);
@@ -293,5 +334,27 @@ public class Views.Form : Adw.Bin {
         } catch (GLib.Error e) {
             debug (e.message);
         }
+    }
+
+    private Gtk.Popover build_info_popover (string text) {
+        var label = new Gtk.Label (text) {
+            wrap = true,
+            margin_top = 6,
+            margin_bottom = 6,
+            margin_start = 6,
+            margin_end = 6,
+            max_width_chars = 24,
+            justify = CENTER
+        };
+
+        var popover = new Gtk.Popover () {
+            child = label
+        };
+
+        return popover;
+    }
+
+    public void focus_name () {
+        project_name_entry.grab_focus ();
     }
 }
