@@ -25,7 +25,6 @@ public class Views.Developer : Adw.Bin {
         }
 
         name_entry = new Granite.ValidatedEntry () {
-            margin_top = 6,
             text = GLib.Environment.get_real_name ()
         };
 
@@ -33,14 +32,27 @@ public class Views.Developer : Adw.Bin {
             text = _("This field is required")
         };
 
+        var name_box = new Gtk.Box (VERTICAL, 6);
+        name_box.append (new Granite.HeaderLabel (_("Name")) {
+            mnemonic_widget = name_entry
+        });
+        name_box.append (name_entry);
+        name_box.append (name_invalid);
+
         email_entry = new Granite.ValidatedEntry () {
             regex = email_regex,
-            margin_top = 6
         };
 
         var email_invalid = new Widgets.InvalidLabel () {
             text = _("The email is invalid")
         };
+
+        var email_box = new Gtk.Box (VERTICAL, 6);
+        email_box.append (new Granite.HeaderLabel (_("Email")) {
+            mnemonic_widget = email_entry
+        });
+        email_box.append (email_entry);
+        email_box.append (email_invalid);
 
         next_button = new Gtk.Button.with_label (_("Next")) {
             margin_bottom = 32,
@@ -50,17 +62,13 @@ public class Views.Developer : Adw.Bin {
         };
         next_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
-        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var form_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 24);
         form_box.append (new Gtk.Label (_("Developer")) {
             halign = START,
             css_classes = { Granite.STYLE_CLASS_H1_LABEL }
         });
-        form_box.append (new Granite.HeaderLabel (_("Name:")));
-        form_box.append (name_entry);
-        form_box.append (name_invalid);
-        form_box.append (new Granite.HeaderLabel (_("Email:")));
-        form_box.append (email_entry);
-        form_box.append (email_invalid);
+        form_box.append (name_box);
+        form_box.append (email_box);
         form_box.append (next_button);
 
         var content_box = new Adw.Bin () {
