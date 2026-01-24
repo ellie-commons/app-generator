@@ -1,0 +1,50 @@
+# ITALIAN TRANSLATION.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-13 10:46+0300\n"
+"PO-Revision-Date: 2025-12-28 10:52+0100\n"
+"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
+"Language-Team: Italian <LL@li.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/app-generator.appdata.xml.in:6 data/app-generator.desktop.in:6
+msgid "App Generator"
+msgstr "App Generator"
+
+#: data/app-generator.appdata.xml.in:7
+msgid "Create an elementary OS app using one of the pre-made app templates"
+msgstr "Crea un'app elementary OS utilizzando uno dei modelli di app predefiniti"
+
+#: data/app-generator.appdata.xml.in:9
+msgid ""
+"App Generator streamlines the process of creating Vala and GTK projects, "
+"allowing you to quickly get started without having to configure everything "
+"from scratch. With just a few clicks, it generates a well-organized and "
+"functional project structure, optimizing your workflow and saving you from "
+"repetitive setup tasks. Perfect for developers who want to focus on coding "
+"without worrying about configuration details."
+msgstr ""
+"App Generator semplifica il processo di creazione di progetti Vala e GTK,"
+"permettendoti di iniziare rapidamente senza dover configurare tutto "
+"da zero. Con pochi clic, genera una struttura di progetto ben organizzata e "
+"funzionale, ottimizzando il flusso di lavoro ed evitandoti attività di configurazione "
+"ripetitive. Perfetto per gli sviluppatori che desiderano concentrarsi sulla codifica "
+"senza doversi preoccupare dei dettagli di configurazione."
+
+#: data/app-generator.appdata.xml.in:29
+msgid "First Release!!!"
+msgstr "Prima rilascio!!!"
+
+#: data/app-generator.desktop.in:7
+msgid "Create an elementary OS app using one of the pre-made app templates."
+msgstr "Crea un'app elementary OS utilizzando uno dei modelli di app predefiniti."
